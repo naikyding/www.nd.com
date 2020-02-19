@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158760835-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-158760835-1');
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KTDX733');</script>
+    <!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/fontawesome.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <link rel="icon" href="../icon/nd.ico" type="image/x-icon" >
+  <title>NIKEDIN ADMIN</title>
+  <style>
+    .menuList li a{
+      text-decoration: none;
+      color:#fff;
+      cursor: pointer;
+    }
+    .menuList li a:hover{
+      background-color:rgba(255,255,255,.6);
+      color:#C79C57;
+    }
+    body{
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+
+  </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTDX733"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+    <header class="vh-100 position-relative">
+      <!-- <div class="arrow"><a href=""><img src="icon/chevron-compact-down.svg" alt=""></a></div> -->
+  <!-- nav -->
+  <nav class="navbar navTop fixed-top navbar-expand-lg navbar-light bg-light py-3 px-4 ">
+      <a href="" class="text-decoration-none"><h5 class="mb-0  ">後台管理系統</h5></a>
+      <button type="button" class="btn btnEv ml-3 logOutBtn" >登　出</button></button>
+      <h3 class="mx-auto mb-0" style="color:#C79C57"></h3>
+      <a class="navbar-brand mr-0" href="../"><h2 class="mb-0">NIKEDIN</h2></span></a>
+    </nav>
+  <!-- main -->
+  <div class="main container-fluid">
+    <div class="row">
+      <!-- menu -->
+      <div class="col-2 px-0 vh-100" style="background: #C79C57;">
+        <ul class="menuList d-flex mb-0 flex-column h-100 " style="padding-top: 80px;padding-inline-start: 0px;">
+          <li class="text-center "><a class="py-4 d-block" id="landingPage">首頁管理</a></li>
+          <li class="text-center "><a class="py-4 d-block productControlBtn">商品管理</a></li>
+          <li class="text-center "><a class="py-4 d-block eventMail" >優惠活動</a></li>
+          <li class="text-center "><a class="py-4 d-block" >客戶管理</a></li>
+          <li class="text-center "><a class="py-4 d-block" >訂單管理</a></li>
+        </ul>
+        
+      </div>
+      <!-- content -->
+      <div class="col-10  vh-100 pb-0" >
+
+
+        <!-- slide Modal -->
+        <div class="modal fade" id="slideModal" tabindex="-1" role="dialog" aria-labelledby="slideModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header ">
+                <h5 class="modal-title w-100 text-center" id="slideModalTitle">新增 SLIDE</h5>
+              </div>
+              <div class="modal-body">
+                <form id="slideAddForm">
+                  <div class="text-center showImgArea p-3" style="display: none;">
+                    <img class="showImg text-center" style="max-width:400px;height:auto" src="" >
+                  </div>
+
+                  <!-- inputText -->
+                  <div class="form-group">
+                    <label for="slideTitle">標題</label>
+                    <input type="text" name="title" class="form-control" id="slideTitle">
+                  </div>
+                  <div class="form-group">
+                    <label for="slideInfo">說明</label>
+                    <textarea type="text" name="info" id="slideInfo" class="form-control"></textarea>
+                  </div>
+                  <!-- uploadPhoto -->
+                  <div class="input-group slideImg">
+                    <label class="btn btn-secondary w-100">
+                      <input type="file"  name="img" id="slideImgFile" accept="image/*" hidden >
+                      <i class="fas fa-arrow-circle-up"></i>上傳商品圖片
+                    </label>
+                    <span class="infoTxt" style="font-size: .5rem;">請選取 1 個檔案</span>
+                    <span class="yourSelectTxt" style="font-size: .5rem;"></span><br>
+                  </div>
+
+                </div>
+              <div class="modal-footer justify-content-around">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">關閉</button>
+                <button type="submit" class="btn btn-lg btn-primary modalSubmitBtn" >送 出</button>
+                <button type="reset" class="btn btn-outline-secondary">重 寫</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+
+        <!--ADD Modal (BTN -> API.php)-->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered  modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center w-100" id="modalTitle">新增<span style="color:#C79C57"></span>商品</h5>
+              </div>
+              <div class="modal-body">
+                <!-- ADD BOX content -->
+                <div class="container-fluid">
+                  <form enctype=”multipart/form-data” method="POST" id="modalForm">
+                    <div class="row">
+                      <div class="col-12 col-sm-6"><!-- left-->
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="productTitle">產品名稱</label>
+                            <input type="text" class="form-control" placeholder="請輸入產品名稱" name="title" id="productTitle">
+                            <input type="text" id="tableName" name="table" value="" hidden>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="productTag">產品類別</label>
+                            <select name="tag"  class="form-control" id="productTag">
+                              <option value="APPAREL">APPAREL</option>
+                              <option value="UNDERWEAR">UNDERWEAR</option>
+                              <option value="ACTIVEWEAR">ACTIVEWEAR</option>
+                              <option value="ACCESSORIES">ACCESSORIES</option>
+                            </select>
+                          </div>
+                        </div> 
+                        <div class="form-group">
+                          <label for="productPrice">產品售價</label>
+                          <input type="number" class="form-control" placeholder="請輸入台幣售價" min="99" name="sales_price" id="productPrice">
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-8">
+                            <label for="productColor">顏色</label>
+                            <select id="productColor" class="form-control" name="color">
+                              <option selected>Choose...</option>
+                              <option>BLACK</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-md-4">
+                            <!-- <label for="productStock">庫存(件)</label>
+                            <input type="number" class="form-control" min="0" name="stock" id="productStock"> -->
+                          </div>
+                        </div>
+                        <div class="form-group ">
+                          <div class="radio_txt">尺吋</div>
+                          <div class="row mb-2">
+                            <div class="col ">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="size_xs" name="XS" value="XS">
+                                <label class="form-check-label mr-2" for="size_xs">XS</label>
+                                <input class="num form-control form-control-sm " disabled type="text"  name="XSnum" placeholder="勾選後輸入庫存量">
+                              </div>
+                            </div>
+                            <div class="col d-flex justify-content-end pr-1">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="size_s" name="S" value="S">
+                                <label class="form-check-label mr-2" for="size_s">S</label>
+                                <input class="num form-control form-control-sm" disabled type="text"  name="Snum" placeholder="勾選後輸入庫存量">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-2">
+                            <div class="col">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="size_m" name="M" value="M">
+                                <label class="form-check-label mr-3" for="size_m">M</label>
+                                <input class="num form-control form-control-sm" disabled type="text"  name="Mnum" placeholder="勾選後輸入庫存量">
+                              </div>
+                            </div>
+                            <div class="col  d-flex justify-content-end pr-1">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="size_l" name="L" value="L">
+                                <label class="form-check-label mr-2" for="size_l">L</label>
+                                <input class="num form-control form-control-sm" disabled type="text"  name="Lnum" placeholder="勾選後輸入庫存量">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-2 ">
+                            <div class=" col">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="size_xl" name="XL" value="XL">
+                                <label class="form-check-label mr-2" for="size_xl">XL</label>
+                                <input class="num form-control form-control-sm" disabled type="text"  name="XLnum" placeholder="勾選後輸入庫存量">
+                              </div>
+                            </div>
+                            <div class="col  d-flex justify-content-end pr-1">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="size_xxl" name="XXL" value="XXL">
+                                <label class="form-check-label mr-2" for="size_xxl">XXL</label>
+                                <input class="num form-control form-control-sm"  disabled type="text"  name="XXLnum" placeholder="勾選後輸入庫存量">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- leftEnd -->
+                      </div>
+                      <div class="col-12 col-sm-6"><!-- right-->
+                        <div class="form-group">
+                          <label for="productDetailes">產品說明</label>
+                          <textarea class="form-control" id="productDetailes" name="details" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                          <label for="productCare">商品成分</label>
+                          <textarea class="form-control" id="productCare" name="care" rows="3"></textarea>
+                        </div>
+                        <!-- uploadPhoto -->
+                        <div class="input-group mb-3 d-block">
+                          <label class="btn btn-secondary w-100">
+                            <input type="file"  name="img[]" accept="image/*" hidden id="" multiple="multiple">
+                            <i class="fas fa-arrow-circle-up"></i>上傳商品圖片
+                          </label>
+                          <span class="infoTxt" style="font-size: .5rem;">請選取 3 個檔案</span>
+                          <span class="yourSelectTxt" style="font-size: .5rem;"></span><br>
+                          <div class="row justify-content-start mx-5">
+                            <!-- 預覽圖片 -->
+                            <!-- <div class="col pvImg1"><img src="https://picsum.photos/50/100/?random=1"></div>
+                            <div class="col pvImg2"><img src="https://picsum.photos/50/100/?random=1"></div>
+                            <div class="col pvImg3"><img src="https://picsum.photos/50/100/?random=1"></div> -->
+                          </div>
+                        </div>
+                        <!-- contentIn end -->
+                      </div>
+                    </div>
+                  </div>
+                  <!-- content -->
+                </div>
+                <div class="modal-footer justify-content-around">
+                  <button type="button" class="btn btn-outline-danger" data-dismiss="modal">關閉</button>
+                  <button type="submit" class="btn btn-lg btn-primary modalSubmitBtn" >送 出</button>
+                  <button type="reset" class="btn btn-outline-secondary">重 寫</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- editModal -->
+        <div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center w-100">修改<span style="color:#C79C57" id="addModalTitle"></span>商品</h5>
+              </div>
+                <form enctype=”multipart/form-data” method="POST" id="editModalForm">
+                  <div class="editItemModalContent">
+                    <!-- AJAX INSERT -->
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+        
+        <div  class="areaSpace h-100 px-4" style="overflow: scroll;padding-top: 90px;"  >
+          <!-- AJAX INSERT -->
+        </div>
+
+        <!-- productArea -->
+        <div class="productArea d-none  h-100 px-4" style="overflow: scroll;padding-top: 90px;"  >
+          <nav class="mt-2">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active select_men" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">MEN</a>
+              <a class="nav-item nav-link select_women" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">WOMEN</a>
+              <a class="nav-item nav-link select_kids" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">KIDS</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active MEN" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
+            <div class="tab-pane fade WOMEN" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+            <div class="tab-pane fade KIDS" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../js/main.js"></script>
+<script>
+
+  //logOut EV
+  $('.logOutBtn').click(logOut);
+  function logOut(){
+    localStorage.removeItem('user');
+    location.href="../";
+  }
+
+  //adminLoginEV
+  var status = localStorage.getItem('user'); 
+  if(status != 'admin') location.href="../";
+
+  // MENU EF EVENT
+  $('li a').click(function(){
+    $('li a').removeAttr('style');
+    $('h3').text($(this).text());
+    $(this).css({
+      'background':'#fff',
+      'color':'#C79C57'
+    });
+  });
+
+  //首頁管理事件
+  var slideEv = 
+  {
+    select:function(){
+      $.post(
+        'api.php?do=slide',
+        res => {
+          if($('.productArea').css('display') == 'block'){
+            $('.productArea').removeClass('d-block');
+          }
+          $('.areaSpace').show();
+          $('.areaSpace').html(res);
+          $('.slideDel').click(slideEv.del);
+          $('.slideUpdate').click(slideEv.update);
+          // $('.slideUpdate').click(function(e){
+          //   $('input[name="item"]').val($(this).val());
+          //   e.preventDefault();
+          // });
+          // $('.slideChg').submit(slideEv.update);
+          // $('#slideChg').submit(slideEv.update);
+          $('.slideImg input[type="file"]').change(function(e){
+            let imgUrl = URL.createObjectURL(e.target.files[0]);
+            $('img.showImg').attr('src', imgUrl);
+            $('.showImgArea').show();
+          });
+        }
+      ).fail(function(){
+        console.log(`slide fail!`);
+      });
+    },
+    update:function(e){
+      // console.log($(this).val());
+      e.preventDefault();
+      $('input[name="item"]').val($(this).val());
+      let itemTd = $(this).parents('td').siblings();
+      let imgName = itemTd.eq(1).children('img').attr('src');
+      $.post(
+        'api.php?do=slideUpdate',
+        $('#slideChg').serialize(),
+        (res)=>{
+          if(res){
+                Swal.fire({
+                  icon: 'success',
+                  title: '修改成功',
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+                slideEv.select();
+              }else{
+                Swal.fire({
+                  icon: 'error',
+                  title: '發生錯誤',
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+              }    
+        }
+        ).fail(()=>{
+        console.log('update fail!! ');
+      });
+    },
+    del:function(){
+
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success ml-2',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.value) {
+          swalWithBootstrapButtons.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+          // console.log($(this).val());
+          $.post(
+            'api.php?do=del', 
+            {
+              item:'slide',
+              id:$(this).val()
+            },
+            (res)=>{
+              if(res){
+                Swal.fire({
+                  icon: 'success',
+                  title: '修改成功',
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+                slideEv.select();
+              }else{
+                Swal.fire({
+                  icon: 'error',
+                  title: '發生錯誤',
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+              }
+            }).fail(()=>{
+            console.log('slideDel fail');
+          });
+
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          )
+        }
+      })
+    },
+    add:function(e){
+      e.preventDefault();
+      $.ajax({
+        type:'POST',
+        url:'api.php?do=slideAdd',
+        data:new FormData(this),
+        contentType: false,
+        cache: false,
+        processData:false,
+        success:(res)=>{
+          if(res){
+            Swal.fire({
+                icon: 'success',
+                title: '新增成功',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            slideEv.select();
+            $('#slideModal').modal('toggle');
+            document.querySelector('#slideAddForm').reset();
+            $('img.showImg').attr('src', '');
+            $('.showImgArea').hide();
+          }else{
+            Swal.fire({
+                icon: 'error',
+                title: '發生錯誤',
+                text: '請確認是否填寫完整',
+                showConfirmButton: false,
+                timer: 1500
+              });
+          }          
+        },
+        fail:()=>{
+          console.log('fail');
+        }
+      });
+    }
+  }
+  //首頁管理
+  $('#landingPage').click(slideEv.select);
+  $('#slideAddForm').submit(slideEv.add);
+
+
+
+  // 商品管理
+  $('.productControlBtn').click(function(){
+    $('.productArea').addClass('d-block');
+    $.post('api.php?do=select',{itemName:'MEN'},function(e){
+      $('.areaSpace').hide();
+      $('.MEN').html(e);
+      // $('#nav-tab a').on('click', function (e) {
+      //   e.preventDefault()
+      //   $(this).tab('show')
+      // })
+      $('.select_men').add('.select_women').add('.select_kids').click(selectList);
+      $('.delBtn').click(delItem);
+      $('.addItemBtn').click(addItemBtnE);
+      $('.editBtn').click(editItem);
+
+    }).fail(function(){
+    console.log(`FiRST AJAX FAIL!!`);
+  })})
+
+  // AJAX DEL
+  function delItem(){
+    let itemID = $(this).val();
+    let itemName = $(this).parents('td').attr('class');
+    $.post('api.php?do=del',{item:itemName, id:itemID},function(){
+      // console.log(re);
+      select(itemName);
+    }).fail(function(){
+      console.log(`DEL FUNCTION FAIL!!`);
+    })
+  }
+
+  // AJAX SELECT LIST
+  function selectList(){
+      let item = $(this).text();
+      $.post('api.php?do=select',{itemName:item},function(re){
+        $(`.${item}`).html(re);
+        $('.delBtn').click(delItem);
+        $('.addItemBtn').click(addItemBtnE);
+        $('.editBtn').click(editItem);
+      }).fail(function(){
+        console.log(`SELECT LIST FAIL!`);
+      })
+  }
+
+  // AJAX SELECT T2
+  function select(name){
+    $.post('api.php?do=select',{itemName:name},function(re){
+      $('.'+name).eq(0).html(re);
+      $('.delBtn').click(delItem);
+      $('.editBtn').click(editItem);
+    }).fail(function(){
+      console.log(`SELECT LIST FAIL!`);
+    })
+  }
+
+  // modal>addItemBTN function
+  function addItemBtnE(){
+    let table = $(this).val();
+    $('#modalTitle').children('span').text(` ${table} `);
+    $('#tableName').val(table);
+  }
+
+  //upFileDisplay
+  $('input[type="file"]').change(function(e){
+      // $(this).next('label').text(e.target.files[0].name);
+      // $(this).siblings('input').val(URL.createObjectURL(e.target.files[0]));
+      // $('.infoTxt').hide();
+      // $('.yourSelectTxt').text(`
+      //   選取了 ${e.target.files.length} 個檔案
+      // `);
+
+      // console.log(URL.createObjectURL(e.target.files[0]));
+      //預覽圖片 URL.createObjectURL()
+      // $(this).next('label').html(`<img src="${URL.createObjectURL(e.target.files[0])}">`);
+  })
+
+  // //MODAL SUBMIT BTN EV
+  // $('.modalSubmitBtn').click(function(e){
+  //   $.post('api.php?do=add', $('#modalForm').serialize(), function(data){
+  //     console.log(data);
+  //   }).fail(function(){
+  //     console.log('modalFORM AJAX FAIL !');
+  //   });
+  // })
+
+
+  //FORM SUBMIT EV
+  $('#modalForm').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+        url: "api.php?do=add",
+        type: "POST",
+        data:  new FormData(this),
+        contentType: false,
+        cache: false,
+        processData:false,
+        success: function(data){
+          // console.log(data);
+
+          document.querySelector('#modalForm').reset();
+          $('.infoTxt').show();
+          $('.yourSelectTxt').text('');
+          select(data);
+          $('input.num').attr('disabled','disabled');
+          $('#exampleModalLong').modal('toggle');
+        },
+        error: function(){
+          console.log('fail');
+        }               
+    })
+  })
+
+//input radio EV
+  $('input[type="checkbox"]').change(function(){
+    if($(this).prop('checked')){
+      $(this).nextAll('input').removeAttr('disabled');
+    } else{
+      $(this).nextAll('input').attr('disabled','disabled');
+      $(this).nextAll('input').val('');
+    }
+  });
+
+  //resetBtn EV
+  $('button[type="reset"]').click(function(){
+    $('input.num').attr('disabled','disabled');
+  })
+
+  //EDIT BTN EV
+  function editItem(){
+    $('#addModalTitle').text(` ${$(this).attr('alt')} `);
+    console.log($(this).val());
+    $.post('api.php?do=selectItem',{table:$(this).attr('alt'), id:$(this).val()},function(data){
+      // console.log(data);
+      $('.editItemModalContent').html(data);
+      $('input[type="checkbox"]').change(function(){
+        if($(this).prop('checked')){
+            $(this).nextAll('input').removeAttr('disabled');
+        } else{
+          $(this).nextAll('input').attr('disabled','disabled');
+          $(this).nextAll('input').val('');
+        }
+    });
+    }).fail(function(){
+      console.log('SELECT ITEM FAIL!');
+    });
+  }
+
+  // EDIT ITEM MODAL EV
+  $('#editModalForm').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+        url: "api.php?do=update",
+        type: "POST",
+        data:  new FormData(this),
+        contentType: false,
+        cache: false,
+        processData:false,
+        success: function(tableName){
+          select(tableName); //update Select
+          $('#editModal').modal('toggle');
+          // console.log(data);
+          // console.log(e);
+          // document.querySelector('#modalForm').reset();
+          // $('.infoTxt').show();
+          // $('.yourSelectTxt').text('');
+          // select(data);
+          // $('input.num').attr('disabled','disabled');
+          // $('#exampleModalLong').modal('toggle');
+        },
+        error: function(){
+          console.log('fail');
+        }               
+    })
+  });
+
+</script>
+</body>
+</html>

@@ -7,6 +7,9 @@
   top:89px;
   left:0;
 }
+a.cartA{
+  cursor: pointer;
+}
 .menuItem{
   min-width:30px;
 }

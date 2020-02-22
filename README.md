@@ -1,6 +1,5 @@
 # NIKEDIN Online Store [:link:](http://220.128.133.15/s1080417/www.nd.com/)
-本作品參考 APPLE CK MK GUCCI 蝦皮拍賣...等電商平台。
-獨自製作：重新設計切版面、功能編寫、前/後台建置及資料庫架置。
+獨自製作電商平台：重新設計切版面、功能編寫、前/後台建置及資料庫架置。
 [![](https://i.imgur.com/oRfGuCd.png)](http://220.128.133.15/s1080417/www.nd.com/)
 
 **開發工具/語言/技術：**

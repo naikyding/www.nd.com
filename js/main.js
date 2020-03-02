@@ -1,3 +1,125 @@
+// ADMIN -----------------------------------------------------
+const eventMail =
+{
+  'select': function(){
+    $.post(
+      'api.php?do=eventMailSelect',
+      res => {
+        if($('.productArea').css('display') == 'block'){
+          $('.productArea').removeClass('d-block');
+        }
+        $('.areaSpace').show();
+        $('.areaSpace').html(res);
+        $('.slideDel').click(slideEv.del);
+        $('.slideUpdate').click(slideEv.update);
+        $('.slideImg input[type="file"]').change(function(e){
+          let imgUrl = URL.createObjectURL(e.target.files[0]);
+          $('img.showImg').attr('src', imgUrl);
+          $('.showImgArea').show();
+        });
+        $('.copyMailBtn').click(copyMailEv);
+        $('select[name="eventMail"]').change(eventMail.change);
+        $('button.eventMailDel').click(eventMail.del);
+      }
+    ).fail(function(){
+      console.log(`slide fail!`);
+    });
+  },
+  'change': function(){
+    $(this).children('option').removeAttr('selected');
+    $.post(
+      'api.php?do=eventMailChange',
+      {
+        table: $(this).attr('name'),
+        item: $(this).attr('alt'),
+        state: $(this).val()
+      },
+      (res)=>{
+        if(res){
+          Swal.fire({
+            icon: 'success',
+            title: '修改成功',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          eventMail.select();
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: '發生錯誤',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+      }
+    ).fail(()=>{console.log(`select Change Fail!`)});
+  },
+  del: function(){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success ml-2',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        );
+
+        $.post(
+          'api.php?do=eventMailDel',
+          {item: $(this).attr('alt')},
+          (res)=>{
+            if(res){
+              Swal.fire({
+                icon: 'success',
+                title: '修改成功',
+                showConfirmButton: false,
+                timer: 1500
+              });
+              eventMail.select();
+            }else{
+              Swal.fire({
+                icon: 'error',
+                title: '發生錯誤',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            }
+          }
+        ).fail(()=>{
+          console.log(`eventMaiil Del Fail!`);
+        });
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    });
+  }
+}
+$('a.eventMail').click(eventMail.select);
+
+
 //INDEX
 var userIdA = 
 {
@@ -427,133 +549,6 @@ function checkOutEvBtn(){
     $('#logInModal').modal('show');
   }
 }
-
-// ADMIN -----------------------------------------------------
-var eventMail =
-{
-  'select': function(){
-    $.post(
-      'api.php?do=eventMailSelect',
-      res => {
-        if($('.productArea').css('display') == 'block'){
-          $('.productArea').removeClass('d-block');
-        }
-        $('.areaSpace').show();
-        $('.areaSpace').html(res);
-        $('.slideDel').click(slideEv.del);
-        $('.slideUpdate').click(slideEv.update);
-        // $('.slideUpdate').click(function(e){
-        //   $('input[name="item"]').val($(this).val());
-        //   e.preventDefault();
-        // });
-        // $('.slideChg').submit(slideEv.update);
-        // $('#slideChg').submit(slideEv.update);
-        $('.slideImg input[type="file"]').change(function(e){
-          let imgUrl = URL.createObjectURL(e.target.files[0]);
-          $('img.showImg').attr('src', imgUrl);
-          $('.showImgArea').show();
-        });
-        $('.copyMailBtn').click(copyMailEv);
-        $('select[name="eventMail"]').change(eventMail.change);
-        $('button.eventMailDel').click(eventMail.del);
-      }
-    ).fail(function(){
-      console.log(`slide fail!`);
-    });
-  },
-  'change': function(){
-    $(this).children('option').removeAttr('selected');
-    $.post(
-      'api.php?do=eventMailChange',
-      {
-        table: $(this).attr('name'),
-        item: $(this).attr('alt'),
-        state: $(this).val()
-      },
-      (res)=>{
-        if(res){
-          Swal.fire({
-            icon: 'success',
-            title: '修改成功',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          eventMail.select();
-        }else{
-          Swal.fire({
-            icon: 'error',
-            title: '發生錯誤',
-            showConfirmButton: false,
-            timer: 1500
-          });
-        }
-      }
-    ).fail(()=>{console.log(`select Change Fail!`)});
-  },
-  del: function(){
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success ml-2',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
-    
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        );
-
-        $.post(
-          'api.php?do=eventMailDel',
-          {item: $(this).attr('alt')},
-          (res)=>{
-            if(res){
-              Swal.fire({
-                icon: 'success',
-                title: '修改成功',
-                showConfirmButton: false,
-                timer: 1500
-              });
-              eventMail.select();
-            }else{
-              Swal.fire({
-                icon: 'error',
-                title: '發生錯誤',
-                showConfirmButton: false,
-                timer: 1500
-              });
-            }
-          }
-        ).fail(()=>{
-          console.log(`eventMaiil Del Fail!`);
-        });
-
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    });
-  }
-}
-$('a.eventMail').click(eventMail.select);
 
 function copyMailEv(e){
   e.preventDefault();
